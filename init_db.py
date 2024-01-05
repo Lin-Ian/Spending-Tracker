@@ -25,7 +25,7 @@ cur.execute('CREATE TABLE vendors '
             'tax decimal NOT NULL,'
             'tip decimal NOT NULL,'
             'payment_method varchar (50) NOT NULL,'
-            'additional_notes varchar (100));')
+            'notes varchar (100));')
 
 # Execute a command: this creates a new table
 cur.execute('DROP TABLE IF EXISTS products CASCADE;')
@@ -38,7 +38,7 @@ cur.execute('CREATE TABLE products '
             'quantity integer DEFAULT 1,'
             'unit_price decimal NOT NULL,'
             'price decimal NOT NULL,'
-            'additional_notes varchar (100),'
+            'notes varchar (100),'
             'FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id))'
             )
 
