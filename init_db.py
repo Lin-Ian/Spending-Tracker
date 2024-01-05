@@ -15,7 +15,7 @@ conn = psycopg2.connect(host=os.environ['DB_HOST'],
 cur = conn.cursor()
 
 # Execute a command: this creates a new table
-cur.execute('DROP TABLE IF EXISTS vendors;')
+cur.execute('DROP TABLE IF EXISTS vendors CASCADE;')
 cur.execute('CREATE TABLE vendors '
             '(vendor_id serial PRIMARY KEY,'
             'date date NOT NULL,'
@@ -28,7 +28,7 @@ cur.execute('CREATE TABLE vendors '
             'additional_notes varchar (100));')
 
 # Execute a command: this creates a new table
-cur.execute('DROP TABLE IF EXISTS products;')
+cur.execute('DROP TABLE IF EXISTS products CASCADE;')
 cur.execute('CREATE TABLE products '
             '(product_id serial PRIMARY KEY,'
             'vendor_id integer,'
