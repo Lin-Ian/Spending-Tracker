@@ -27,6 +27,21 @@ cur.execute('CREATE TABLE vendors '
             'payment_method varchar (50) NOT NULL,'
             'additional_notes varchar (100));')
 
+# Execute a command: this creates a new table
+cur.execute('DROP TABLE IF EXISTS products;')
+cur.execute('CREATE TABLE products '
+            '(product_id serial PRIMARY KEY,'
+            'vendor_id integer,'
+            'product_name varchar (50) NOT NULL,'
+            'category varchar (50) NOT NULL,'
+            'subcategory varchar (50) NOT NULL,'
+            'quantity integer DEFAULT 1,'
+            'unit_price decimal NOT NULL,'
+            'price decimal NOT NULL,'
+            'additional_notes varchar (100),'
+            'FOREIGN KEY (vendor_id) REFERENCES vendors(vendor_id))'
+            )
+
 # Commit operations
 conn.commit()
 
