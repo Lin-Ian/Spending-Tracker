@@ -24,6 +24,7 @@ cur.execute('CREATE TABLE vendors '
             'subtotal decimal NOT NULL,'
             'tax decimal NOT NULL,'
             'tip decimal NOT NULL,'
+            'total decimal NOT NULL,'
             'payment_method varchar (50) NOT NULL,'
             'notes varchar (100));')
 
