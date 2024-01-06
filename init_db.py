@@ -17,7 +17,7 @@ cur = conn.cursor()
 # Execute a command: this creates a new table
 cur.execute('DROP TABLE IF EXISTS transactions CASCADE;')
 cur.execute('CREATE TABLE transactions '
-            '(vendor_id serial PRIMARY KEY,'
+            '(transaction_id serial PRIMARY KEY,'
             'date date NOT NULL,'
             'vendor varchar (50) NOT NULL,'
             'location varchar (50) NOT NULL,'
@@ -32,7 +32,7 @@ cur.execute('CREATE TABLE transactions '
 cur.execute('DROP TABLE IF EXISTS products CASCADE;')
 cur.execute('CREATE TABLE products '
             '(product_id serial PRIMARY KEY,'
-            'vendor_id integer,'
+            'transaction_id integer,'
             'product_name varchar (60) NOT NULL,'
             'category varchar (50) NOT NULL,'
             'subcategory varchar (50) NOT NULL,'
@@ -40,7 +40,7 @@ cur.execute('CREATE TABLE products '
             'unit_price decimal NOT NULL,'
             'price decimal NOT NULL,'
             'notes varchar (100),'
-            'FOREIGN KEY (vendor_id) REFERENCES transactions(vendor_id))'
+            'FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id))'
             )
 
 # Commit operations
