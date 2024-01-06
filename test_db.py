@@ -28,6 +28,12 @@ cur.execute('INSERT INTO products '
             'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
             (transaction_id, 'Eggs', 'Food', 'Groceries', 2, 3.49, 6.98, ''))
 
+cur.execute('UPDATE transactions '
+            'SET date=%s, vendor=%s, location=%s, subtotal=%s, tax=%s, tip=%s, total=%s, payment_method=%s, notes=%s '
+            'WHERE transaction_id=%s',
+            ('2023-11-18', 'Shoppers Drug Mart', 'Waterloo', 12.98, 0.78, 0, 13.76, 'Tangerine Card', 'Sample Comment',
+             transaction_id))
+
 # Commit operations
 conn.commit()
 
