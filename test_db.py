@@ -34,6 +34,11 @@ cur.execute('UPDATE transactions '
             ('2023-11-18', 'Shoppers Drug Mart', 'Waterloo', 12.98, 0.78, 0, 13.76, 'Tangerine Card', 'Sample Comment',
              transaction_id))
 
+cur.execute('UPDATE products '
+            'SET product_name=%s, category=%s, subcategory=%s, quantity=%s, unit_price=%s, price=%s, notes=%s '
+            'WHERE product_id=%s',
+            ('Made Good Snack', 'Food', 'Groceries', 2, 3.00, 6.00, 'Banana Chocolate', 1))
+
 # Commit operations
 conn.commit()
 
