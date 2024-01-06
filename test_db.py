@@ -41,6 +41,8 @@ cur.execute('UPDATE products '
 
 cur.execute('DELETE FROM products WHERE product_id=%s' % 1)
 
+cur.execute('DELETE FROM transactions WHERE transaction_id=%s' % 1)
+
 # Commit operations
 conn.commit()
 
