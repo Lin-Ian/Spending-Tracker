@@ -30,6 +30,16 @@ class Transaction(FlaskForm):
     notes = StringField("Notes")
 
 
+class Product(FlaskForm):
+    product_name = StringField("Product Name", validators=[DataRequired()])
+    category = StringField("Category", validators=[DataRequired()])
+    subcategory = StringField("Subcategory", validators=[DataRequired()])
+    quantity = DecimalField("Quantity", validators=[DataRequired()])
+    unit_price = DecimalField("Unit Price", validators=[DataRequired()])
+    price = DecimalField("Price", validators=[DataRequired()])
+    notes = StringField("Notes")
+
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
@@ -38,6 +48,7 @@ app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 def home():
 
     transaction = Transaction()
+    product = Product()
     if transaction.validate_on_submit():
         conn = get_db_connection()
         cur = conn.cursor()
@@ -52,7 +63,7 @@ def home():
         cur.close()
         conn.close()
 
-    return render_template('home.html', transaction=transaction)
+    return render_template('home.html', transaction=transaction, product=product)
 
 
 if __name__ == "__main__":
