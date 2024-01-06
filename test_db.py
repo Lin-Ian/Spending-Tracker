@@ -39,6 +39,8 @@ cur.execute('UPDATE products '
             'WHERE product_id=%s',
             ('Made Good Snack', 'Food', 'Groceries', 2, 3.00, 6.00, 'Banana Chocolate', 1))
 
+cur.execute('DELETE FROM products WHERE product_id=%s' % 1)
+
 # Commit operations
 conn.commit()
 
