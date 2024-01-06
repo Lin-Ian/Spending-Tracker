@@ -40,7 +40,7 @@ cur.execute('CREATE TABLE products '
             'unit_price decimal NOT NULL,'
             'price decimal NOT NULL,'
             'notes varchar (100),'
-            'FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id))'
+            'FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id) ON DELETE CASCADE)'
             )
 
 # Commit operations
