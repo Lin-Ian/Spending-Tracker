@@ -5,6 +5,30 @@
     <title>Title</title>
 </head>
 <body>
-    <p>d</p>
+    <form method="POST" action="">
+        {{transaction.csrf_token}}
+        {{transaction.date.label}}
+        {{transaction.date()}}
+        {{transaction.vendor.label}}
+        {{transaction.vendor()}}
+        {{transaction.location.label}}
+        {{transaction.location()}}
+        {{transaction.subtotal.label}}
+        {{transaction.subtotal()}}
+        {{transaction.discount.label}}
+        {{transaction.discount()}}
+        {{transaction.tax.label}}
+        {{transaction.tax()}}
+        {{transaction.tip.label}}
+        {{transaction.tip()}}
+        {{transaction.total.label}}
+        {{transaction.total()}}
+        {{transaction.payment_method.label}}
+        {{transaction.payment_method()}}
+        {{transaction.notes.label}}
+        {{transaction.notes()}}
+
+        <input type="submit" value="Add">
+    </form>
 </body>
 </html>
