@@ -33,7 +33,7 @@ cur.execute('DROP TABLE IF EXISTS products CASCADE;')
 cur.execute('CREATE TABLE products '
             '(product_id serial PRIMARY KEY,'
             'vendor_id integer,'
-            'product_name varchar (50) NOT NULL,'
+            'product_name varchar (60) NOT NULL,'
             'category varchar (50) NOT NULL,'
             'subcategory varchar (50) NOT NULL,'
             'quantity integer DEFAULT 1,'
