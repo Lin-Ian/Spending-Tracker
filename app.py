@@ -59,6 +59,12 @@ def home():
                      transaction.subtotal.data, transaction.discount.data, transaction.tax.data,
                      transaction.tip.data, transaction.total.data, transaction.payment_method.data,
                      transaction.notes.data))
+        transaction_id = cur.fetchone()
+        cur.execute('INSERT INTO products '
+                    '(transaction_id, product_name, category, subcategory, quantity, unit_price, price, notes) '
+                    'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
+                    (transaction_id, product.product_name.data, product.category.data, product.subcategory.data,
+                     product.quantity.data, product.unit_price.data, product.price.data, product.notes.data))
         conn.commit()
         cur.close()
         conn.close()
