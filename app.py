@@ -64,14 +64,15 @@ def home():
                      transaction.notes.data))
         transaction_id = cur.fetchone()
 
-        values = [product.data for product in transaction.product.entries]
-        print(values)
+        product_list = [product.data for product in transaction.product.entries]
 
-        # cur.execute('INSERT INTO products '
-        #             '(transaction_id, product_name, category, subcategory, quantity, unit_price, price, notes) '
-        #             'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
-        #             (transaction_id, transaction.product.product_name.data, product.category.data, product.subcategory.data,
-        #              product.quantity.data, product.unit_price.data, product.price.data, product.notes.data))
+        for product in product_list:
+
+            cur.execute('INSERT INTO products '
+                        '(transaction_id, product_name, category, subcategory, quantity, unit_price, price, notes) '
+                        'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
+                        (transaction_id, product['product_name'], product['category'], product['subcategory'],
+                         product['quantity'], product['unit_price'], product['price'], product['notes']))
         conn.commit()
         cur.close()
         conn.close()
