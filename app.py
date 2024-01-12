@@ -80,6 +80,21 @@ def home():
     return render_template('home.html', transaction=transaction)
 
 
+@app.route("/transactions")
+def transactions():
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute('SELECT * FROM transactions;')
+    transaction_data = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return render_template('transactions.html', transactions=transaction_data)
+
+
 if __name__ == "__main__":
 
     app.run()
