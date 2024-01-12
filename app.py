@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import psycopg2
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import DateField, StringField, DecimalField, FieldList
+from wtforms import DateField, StringField, DecimalField, FieldList, FormField, SubmitField
 from wtforms.validators import DataRequired
 
 load_dotenv()
@@ -15,6 +15,16 @@ def get_db_connection():
                             user=os.environ['DB_USERNAME'],
                             password=os.environ['DB_PASSWORD'])
     return conn
+
+
+class ProductEntryForm(FlaskForm):
+    product_name = StringField("Product Name", validators=[DataRequired()])
+    category = StringField("Category", validators=[DataRequired()])
+    subcategory = StringField("Subcategory", validators=[DataRequired()])
+    quantity = DecimalField("Quantity", validators=[DataRequired()])
+    unit_price = DecimalField("Unit Price", validators=[DataRequired()])
+    price = DecimalField("Price", validators=[DataRequired()])
+    notes = StringField("Notes")
 
 
 class Transaction(FlaskForm):
@@ -29,15 +39,9 @@ class Transaction(FlaskForm):
     payment_method = StringField("Payment Method", validators=[DataRequired()])
     notes = StringField("Notes")
 
+    product = FieldList(FormField(ProductEntryForm), min_entries=2)
 
-class Product(FlaskForm):
-    product_name = StringField("Product Name", validators=[DataRequired()])
-    category = StringField("Category", validators=[DataRequired()])
-    subcategory = StringField("Subcategory", validators=[DataRequired()])
-    quantity = DecimalField("Quantity", validators=[DataRequired()])
-    unit_price = DecimalField("Unit Price", validators=[DataRequired()])
-    price = DecimalField("Price", validators=[DataRequired()])
-    notes = StringField("Notes")
+    add = SubmitField("Add")
 
 
 app = Flask(__name__)
@@ -48,7 +52,6 @@ app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 def home():
 
     transaction = Transaction()
-    product = Product()
     if transaction.validate_on_submit():
         conn = get_db_connection()
         cur = conn.cursor()
@@ -60,16 +63,20 @@ def home():
                      transaction.tip.data, transaction.total.data, transaction.payment_method.data,
                      transaction.notes.data))
         transaction_id = cur.fetchone()
-        cur.execute('INSERT INTO products '
-                    '(transaction_id, product_name, category, subcategory, quantity, unit_price, price, notes) '
-                    'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
-                    (transaction_id, product.product_name.data, product.category.data, product.subcategory.data,
-                     product.quantity.data, product.unit_price.data, product.price.data, product.notes.data))
+
+        values = [product.data for product in transaction.product.entries]
+        print(values)
+
+        # cur.execute('INSERT INTO products '
+        #             '(transaction_id, product_name, category, subcategory, quantity, unit_price, price, notes) '
+        #             'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
+        #             (transaction_id, transaction.product.product_name.data, product.category.data, product.subcategory.data,
+        #              product.quantity.data, product.unit_price.data, product.price.data, product.notes.data))
         conn.commit()
         cur.close()
         conn.close()
 
-    return render_template('home.html', transaction=transaction, product=product)
+    return render_template('home.html', transaction=transaction)
 
 
 if __name__ == "__main__":
