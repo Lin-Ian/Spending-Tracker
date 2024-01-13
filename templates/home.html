@@ -8,30 +8,30 @@
     <form method="POST" action="">
         {{transaction.csrf_token}}
         {{transaction.date.label}}
-        {{transaction.date()}}
+        {{transaction.date}}
         {{transaction.vendor.label}}
-        {{transaction.vendor()}}
+        {{transaction.vendor}}
         {{transaction.location.label}}
-        {{transaction.location()}}
+        {{transaction.location}}
         {{transaction.subtotal.label}}
-        {{transaction.subtotal()}}
+        {{transaction.subtotal}}
         {{transaction.discount.label}}
-        {{transaction.discount()}}
+        {{transaction.discount}}
         {{transaction.tax.label}}
-        {{transaction.tax()}}
+        {{transaction.tax}}
         {{transaction.tip.label}}
-        {{transaction.tip()}}
+        {{transaction.tip}}
         {{transaction.total.label}}
-        {{transaction.total()}}
+        {{transaction.total}}
         {{transaction.payment_method.label}}
-        {{transaction.payment_method()}}
+        {{transaction.payment_method}}
         {{transaction.notes.label}}
-        {{transaction.notes()}}
+        {{transaction.notes}}
 
         <br>
 
         {{transaction.product.label}}
-        {{transaction.product()}}
+        {{transaction.product}}
 
         <br>
         {{transaction.add}}
